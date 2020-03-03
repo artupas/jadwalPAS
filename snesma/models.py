@@ -26,3 +26,11 @@ class Jadawl12(models.Model):
     mapel = models.CharField(max_length=100,null=True)
     jam_ke = models.CharField(max_length=100, choices=jam)
     kode_guru = models.CharField(max_length=10,null=True)
+    kode_guru2 = models.CharField(max_length=100,null=True)
+
+class Jadawl3(models.Model):
+    hari = models.IntegerField(choices=hari)
+    ruang = models.IntegerField()
+    mapel = models.CharField(max_length=100,null=True)
+    jam_ke = models.CharField(max_length=100, choices=jam)
+    kode_guru = models.CharField(max_length=10,null=True)
