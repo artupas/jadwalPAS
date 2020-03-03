@@ -17,14 +17,24 @@ def GenerateJadwa(request):
     #                 ruang=x,
     #                 jam_ke=z,
     #             )
-    jadwal = Jadawl12.objects.all()
-    guru = Guru.objects.filter(jenis=0)
-    for data in jadwal:
-        for x in guru:
-            cek_jatah = Jadawl12.objects.filter(kode_guru=x.kode).count()
-            if cek_jatah != 3 and cek_jatah != 0:
-                jadwal_eksis = Jadawl12.objects.filter(kode_guru=x.kode)
 
-
-
+    guru = Guru.objects.filter(jenis=0).order_by('?')
+    for hari in range(1,7):
+        print(hari)
+        jadwal = Jadawl12.objects.filter(hari=hari).order_by('?')
+        for data in jadwal:
+            for x in guru:
+                cek_jadwal = jadwal.filter(kode_guru=x.kode).count()
+                if cek_jadwal > 1:
+                    continue
+                else:
+                    data.kode_guru = x.kode
+                    data.save()
+    # print(Jadawl12.objects.filter(kode_guru__isnull=False).count())
+    # jml = 0
+    # for data in guru:
+    #     jadwal = Jadawl12.objects.filter(kode_guru=data.kode).count()
+    #     if jadwal>0:
+    #         jml=jml+1
+    # print(jml)
     return HttpResponse('ok')
